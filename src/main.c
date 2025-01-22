@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "game.h"
 #include "board.h"
 
 board_info EZ = {9,9,10};
@@ -63,21 +64,22 @@ int main(int argc, char* argv[])
     srand(time(NULL));
     board cur_board = Create_Board(&info);
 
-    for (int i =0; i< info.rows; i++)
-    {
-        for (int j=0; j<info.cols; j++)
-        {
-            printf("%c", cur_board.area[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-    for (int i =0; i< info.rows; i++)
-    {
-        for (int j=0; j<info.cols; j++)
-        {
-            printf("%d", cur_board.planted_mines[i][j]);
-        }
-        printf("\n");
-    }
+    // for (int i =0; i< info.rows; i++)
+    // {
+    //     for (int j=0; j<info.cols; j++)
+    //     {
+    //         printf("%c", cur_board.area[i][j]);
+    //     }
+    //     printf("\n");
+    // }
+    // printf("\n");
+    // for (int i =0; i< info.rows; i++)
+    // {
+    //     for (int j=0; j<info.cols; j++)
+    //     {
+    //         printf("%d", cur_board.planted_mines[i][j]);
+    //     }
+    //     printf("\n");
+    // }
+    play(&cur_board);
 }
