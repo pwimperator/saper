@@ -12,11 +12,11 @@ board_info WRONG = {0, 0, 0};
 board_info Create_Custom_Board_Info()
 {
     printf("Podaj wielkosc planszy:\n");
-    printf("Szerokosc:");
+    printf("Wysokosc:");
     int w;
     if (scanf("%d", &w) != 1 || w <= 0) return WRONG;
 
-    printf("Wyskokosc:");
+    printf("Szerokosc:");
     int c;
     if (scanf("%d", &c) != 1 || c <= 0) return WRONG;
 
@@ -64,22 +64,5 @@ int main(int argc, char* argv[])
     srand(time(NULL));
     board cur_board = Create_Board(&info);
 
-    // for (int i =0; i< info.rows; i++)
-    // {
-    //     for (int j=0; j<info.cols; j++)
-    //     {
-    //         printf("%c", cur_board.area[i][j]);
-    //     }
-    //     printf("\n");
-    // }
-    // printf("\n");
-    // for (int i =0; i< info.rows; i++)
-    // {
-    //     for (int j=0; j<info.cols; j++)
-    //     {
-    //         printf("%d", cur_board.planted_mines[i][j]);
-    //     }
-    //     printf("\n");
-    // }
     play(&cur_board);
 }

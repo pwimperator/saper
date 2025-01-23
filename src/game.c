@@ -2,7 +2,7 @@
 #include "draw.h"
 #include "board.h"
 
-#define MAX_SIZE 200
+#define MAX_SIZE 60
 
 
 int around(board * cur_board, int row, int col)
@@ -14,7 +14,6 @@ int around(board * cur_board, int row, int col)
         0, -1,
         1, -1,
         -1, 0,
-        0, 0,
         1, 0,
         -1, 1,
         0, 1,
@@ -23,12 +22,12 @@ int around(board * cur_board, int row, int col)
     int cur_row = 0;
     int cur_col = 0;
 
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < 8; i++)
     {   
         cur_row = row + moves[i * 2];
         cur_col = col + moves[i * 2 + 1];
 
-        if ( (cur_row >= 0 && cur_row < cur_board->rows) && (cur_col >= 0 && cur_col < cur_board->cols) && cur_board->planted_mines[cur_row][cur_col] == '*')
+        if ( (cur_row >= 0 && cur_row < cur_board->rows) && (cur_col >= 0 && cur_col < cur_board->cols) && cur_board->planted_mines[cur_row][cur_col] == 1)
             res += 1;
     }
     return res;
@@ -36,37 +35,38 @@ int around(board * cur_board, int row, int col)
 
 void dfs(board * cur_board, int row, int col, int visited[MAX_SIZE][MAX_SIZE])
 {   
-    if (visited[row][col] == 1)
-        return;
+    if (visited[row][col] == 1) return;
 
     visited[row][col] = 1;
 
     int val = around(cur_board, row, col);
-  
-    cur_board->area[row][col] = val ? (char)val : ' ';
 
-    if (val)
-        return; 
+    cur_board->area[row][col] = val > 0 ? val + '0' : ' ';
+
+    if (val > 0) return;
 
     int moves[] = { // row col
-        -1, 0, 
-        1, 0,
+        -1, -1,
         0, -1,
-        0, 1
-        };
+        1, -1,
+        -1, 0,
+        1, 0,
+        -1, 1,
+        0, 1,
+        1, 1
+    };
 
     int cur_row = 0;
     int cur_col = 0;
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 8; i++)
     {   
         cur_row = row + moves[i * 2];
         cur_col = col + moves[i * 2 + 1];
-        if ((row >= 0 && row < cur_board->rows) && (col >= 0 && col < cur_board->cols) && cur_board->area[cur_row][cur_col] == '#')
+        if ( (cur_col >= 0 && cur_col < cur_board->cols) && (cur_row >= 0 && cur_row < cur_board->rows) && visited[cur_row][cur_col] != 1 && cur_board->planted_mines[cur_row][cur_col] != 1)
         {
             dfs(cur_board, cur_row, cur_col, visited);
         }
     }
-    
 }
 
 int reveal(board * cur_board, int row, int col, int * first_guess, int visited[MAX_SIZE][MAX_SIZE])
@@ -95,16 +95,20 @@ void play(board * cur_board)
     int val = 0;
     int first_guess = 1;
     int visited[MAX_SIZE][MAX_SIZE] = {0};
+
     draw(cur_board);
+    printf("Prosze podac koordynaty\n");
 
     while (1)
     {   
         val = scanf(" %c %d %d", &option, &row, &col);
         // printf("%d %d %d %c\n",val,row,col,option);
-
+    
         if(val == 0 | val == 1 || val == 2)
-        {
+        {   
+
             printf("Podano zle polecenie! Uzyj komendy \"help\"\n");
+            fseek(stdin,0,SEEK_END); // czyszczenie bufora
             continue;
         }
 
@@ -114,20 +118,30 @@ void play(board * cur_board)
             {
                 if (cur_board->area[row][col] == '#'){
 
-                    reveal(cur_board, row, col, &first_guess, visited);
-                    printf("Odslonieto pole: [%d %d]\n", row, col);
+                    int res = reveal(cur_board, row, col, &first_guess, visited);
+                
+                    if (res == -1)
+                    {
+                        draw_with_mines(cur_board);
+                        printf("Przegrales!\n", row, col);
+                        break;
+                    }
+
+                    printf("Odkryto pole: [%d %d]\n", row, col);
                     
                 }
                 else if (cur_board->area[row][col] == 'F')
+                {
+                    cur_board->area[row][col] = '#';
                     printf("Usunieto flage: [%d %d]\n", row, col);
+                }
                 else
-                    printf("Pole: [%d %d] juz jest odsloniete\n", row, col);
+                    printf("Pole: [%d %d] jest odkryte\n", row, col);
                     
             }
             else
             {
                 printf("Podano zle wartosci koordynatow\n");
-                break;
                 continue;
             }
         }
@@ -136,10 +150,16 @@ void play(board * cur_board)
             if ((col >= 0 && col < cur_board->cols) && (row >= 0 && row < cur_board->rows))
             {   
 
-                if (cur_board->area[row][col] == '#')
+                if (cur_board->area[row][col] == '#'){
+                    cur_board->area[row][col] = 'F';
                     printf("Ustawionio flage: [%d %d]\n", row, col);
-                else
+                }
+                else if (cur_board->area[row][col] == 'F'){
+                    cur_board->area[row][col] = '#';
                     printf("Usunieto flage: [%d %d]\n", row, col);
+                }
+                else
+                    printf("Pole: [%d %d] jest odkryte\n", row, col);
                     
             }
             else

@@ -5,20 +5,41 @@ void draw(board * cur_board)
 {
 
     for (int i =0; i< cur_board->rows; i++)
+    {
+        for (int j=0; j<cur_board->cols; j++)
         {
-            for (int j=0; j<cur_board->cols; j++)
-            {
-                printf("%c", cur_board->area[i][j]);
-            }
-            printf("\n");
+            printf("%c", cur_board->area[i][j]);
         }
         printf("\n");
-        for (int i =0; i< cur_board->rows; i++)
+    }
+    printf("\n");
+    for (int i =0; i< cur_board->rows; i++)
+    {
+        for (int j=0; j <cur_board->cols; j++)
         {
-            for (int j=0; j <cur_board->cols; j++)
-            {
-                printf("%d", cur_board->planted_mines[i][j]);
-            }
-            printf("\n");
+            printf("%d", cur_board->planted_mines[i][j]);
         }
+        printf("\n");
+    }
+}
+
+void draw_with_mines(board * cur_board)
+{   
+    for (int i =0; i< cur_board->rows; i++)
+    {
+        for (int j=0; j<cur_board->cols; j++)
+        {
+            cur_board->planted_mines[i][j] == 1 ? printf("\033[33m%c\033[0m", '*') : printf("%c", cur_board->area[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+    for (int i =0; i< cur_board->rows; i++)
+    {
+        for (int j=0; j <cur_board->cols; j++)
+        {
+            printf("%d", cur_board->planted_mines[i][j]);
+        }
+        printf("\n");
+    }
 }
