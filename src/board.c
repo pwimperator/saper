@@ -11,6 +11,8 @@ board Create_Board(board_info * cur_info)
     new_board.cols = cur_info->cols;
     new_board.rows = cur_info->rows;
     new_board.mines = cur_info->mines;
+    new_board.points = 0;
+    new_board.level = cur_info->level;
 
     new_board.all_squares = new_board.cols * new_board.rows;
     new_board.empty_squares = new_board.all_squares;

@@ -6,6 +6,7 @@ typedef struct
     int rows;
     int cols;
     int mines;
+    int level;
 } board_info;
 
 typedef struct
@@ -17,6 +18,8 @@ typedef struct
     int rows;
     int cols;
     int mines;
+    int points;
+    int level;
 
 } board;
 

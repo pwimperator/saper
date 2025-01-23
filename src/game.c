@@ -107,7 +107,7 @@ void play(board * cur_board)
         if(val == 0 | val == 1 || val == 2)
         {   
 
-            printf("Podano zle polecenie! Uzyj komendy \"help\"\n");
+            printf("Podano zle polecenie! Uzyj komendy \"h\"\n");
             fseek(stdin,0,SEEK_END); // czyszczenie bufora
             continue;
         }

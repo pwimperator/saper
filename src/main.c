@@ -4,10 +4,10 @@
 #include "game.h"
 #include "board.h"
 
-board_info EZ = {9,9,10};
-board_info MEDIUM = {16,16,40};
-board_info HARD = {16,30,99};
-board_info WRONG = {0, 0, 0};
+board_info EZ = {9,9,10, 1};
+board_info MEDIUM = {16,16,40, 2};
+board_info HARD = {16,30,99, 3};
+board_info WRONG = {0, 0, 0, 0};
 
 board_info Create_Custom_Board_Info()
 {
@@ -23,6 +23,12 @@ board_info Create_Custom_Board_Info()
     printf("Miny:");
     int m;
     if (scanf("%d", &m) != 1 || m <= 0 || m > m * c) return WRONG;
+
+    if (w > 50 || c > 50)
+    {
+        printf("Maksymalne wymiary planszy to 50x50!\n");
+        return WRONG;
+    }
 
     board_info new = {w, c, m};
     return new;
