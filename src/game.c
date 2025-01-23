@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <conio.h>
 #include "draw.h"
 #include "board.h"
+#include "leaderboard.h"
 
 #define MAX_SIZE 60
-
 
 int around(board * cur_board, int row, int col)
 {
@@ -38,7 +39,8 @@ void dfs(board * cur_board, int row, int col, int visited[MAX_SIZE][MAX_SIZE])
     if (visited[row][col] == 1) return;
 
     visited[row][col] = 1;
-
+    cur_board->points += cur_board->level;
+    cur_board->empty_squares++;
     int val = around(cur_board, row, col);
 
     cur_board->area[row][col] = val > 0 ? val + '0' : ' ';
@@ -84,12 +86,17 @@ int reveal(board * cur_board, int row, int col, int * first_guess, int visited[M
 
     dfs(cur_board, row, col, visited);
 
+    if (cur_board->all_safe_squares == cur_board->empty_squares)
+        return 2;
+
     return 1;
 }
 
 void play(board * cur_board)
 {
     char option = '0';
+    int r_row = 0;
+    int r_col = 0;
     int row = 0;
     int col = 0;
     int val = 0;
@@ -98,22 +105,17 @@ void play(board * cur_board)
 
     draw(cur_board);
     printf("Prosze podac koordynaty\n");
-
+    
     while (1)
     {   
-        val = scanf(" %c %d %d", &option, &row, &col);
-        // printf("%d %d %d %c\n",val,row,col,option);
-    
-        if(val == 0 | val == 1 || val == 2)
-        {   
-
-            printf("Podano zle polecenie! Uzyj komendy \"h\"\n");
-            fseek(stdin,0,SEEK_END); // czyszczenie bufora
-            continue;
-        }
-
+        scanf(" %c", &option);
+        
         if (option == 'r')
-        {
+        {   
+            scanf(" %d", &r_row);
+            scanf(" %d", &r_col);
+            row = r_row - 1;
+            col = r_col - 1;
             if ((col >= 0 && col < cur_board->cols) && (row >= 0 && row < cur_board->rows))
             {
                 if (cur_board->area[row][col] == '#'){
@@ -123,57 +125,92 @@ void play(board * cur_board)
                     if (res == -1)
                     {
                         draw_with_mines(cur_board);
-                        printf("Przegrales!\n", row, col);
+                        printf("Przegrales!\n", r_row, r_col);
                         break;
                     }
 
-                    printf("Odkryto pole: [%d %d]\n", row, col);
+                    if (res == 2){
+                        draw_with_mines(cur_board);
+                        printf("Wygrales!\n");
+                        break;
+                    }
+                    draw(cur_board);
+                    printf("Odkryto pole: [%d %d]\n", r_row, r_col);
                     
                 }
                 else if (cur_board->area[row][col] == 'F')
                 {
                     cur_board->area[row][col] = '#';
-                    printf("Usunieto flage: [%d %d]\n", row, col);
+                    draw(cur_board);
+                    printf("Usunieto flage: [%d %d]\n", r_row, r_col);
                 }
                 else
-                    printf("Pole: [%d %d] jest odkryte\n", row, col);
-                    
+                {
+                    draw(cur_board);
+                    printf("Pole: [%d %d] jest odkryte\n", r_row, r_col);
+                }   
             }
             else
             {
+                draw(cur_board);
                 printf("Podano zle wartosci koordynatow\n");
-                continue;
+                fseek(stdin,0,SEEK_END); // czyszczenie bufora
             }
         }
         else if (option == 'f')
         {
+            scanf(" %d", &r_row);
+            scanf(" %d", &r_col);
+            row = r_row - 1;
+            col = r_col - 1;
             if ((col >= 0 && col < cur_board->cols) && (row >= 0 && row < cur_board->rows))
             {   
 
                 if (cur_board->area[row][col] == '#'){
                     cur_board->area[row][col] = 'F';
-                    printf("Ustawionio flage: [%d %d]\n", row, col);
+                    draw(cur_board);
+                    printf("Ustawionio flage: [%d %d]\n", r_row, r_col);
                 }
                 else if (cur_board->area[row][col] == 'F'){
                     cur_board->area[row][col] = '#';
-                    printf("Usunieto flage: [%d %d]\n", row, col);
+                    draw(cur_board);
+                    printf("Usunieto flage: [%d %d]\n", r_row, r_col);
                 }
                 else
-                    printf("Pole: [%d %d] jest odkryte\n", row, col);
+                {
+                    draw(cur_board);
+                    printf("Pole: [%d %d] jest odkryte\n", r_row, r_col);
+                }
                     
             }
             else
             {
                 printf("Podano zle wartosci koordynatow\n");
+                fseek(stdin,0,SEEK_END); // czyszczenie bufora
             }
+        }
+        else if (option == 'h')
+        {
+            help();
+            //fseek(stdin,0,SEEK_END); // czyszczenie bufora
+            int d;
+            getch();
+            draw(cur_board);
         }
         else
         {
-            printf("Podano zle polecenie! Uzyj komendy \"help\"\n");
+            draw(cur_board);
+            printf("Podano zle polecenie! Uzyj komendy \"h\"\n");
+            fseek(stdin,0,SEEK_END); // czyszczenie bufora
         }
-
-        draw(cur_board);
     }
+
+    char imie[100];
+    printf("\nPodaj imie: ");
+    scanf("%s", imie);
+
+    add_score(imie, cur_board->points);
+
+    display_scores();
+
 }
-
-

@@ -11,8 +11,8 @@ typedef struct
 
 typedef struct
 {
-    int all_squares;
     int empty_squares;
+    int all_safe_squares;
     char ** area;
     char ** planted_mines;
     int rows;

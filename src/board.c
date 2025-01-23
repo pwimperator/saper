@@ -14,8 +14,8 @@ board Create_Board(board_info * cur_info)
     new_board.points = 0;
     new_board.level = cur_info->level;
 
-    new_board.all_squares = new_board.cols * new_board.rows;
-    new_board.empty_squares = new_board.all_squares;
+    new_board.all_safe_squares = new_board.cols * new_board.rows - new_board.mines;
+    new_board.empty_squares = 0;
 
     new_board.area = malloc(new_board.rows * sizeof(char *));
     new_board.planted_mines = malloc(new_board.rows * sizeof(char *));

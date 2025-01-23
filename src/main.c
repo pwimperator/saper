@@ -30,7 +30,7 @@ board_info Create_Custom_Board_Info()
         return WRONG;
     }
 
-    board_info new = {w, c, m};
+    board_info new = {w, c, m, 1};
     return new;
 }
 board_info Select_Board()
