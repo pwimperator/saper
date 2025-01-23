@@ -133,3 +133,15 @@ void help()
 		" h - pokazuje ta wiadomosc\n"
         " Nacisnij dowolny przycisk aby wyjsc\n");
 }
+
+void help_arg()
+{
+	printf("Argumenty:\n"
+		" -t [plik] - testuje program wczytując procedury z pliku\n"
+		" -u        - przeprowadza testy jednostkowe\n"
+		" -h    - wyświetla tą wiadomość\n\n");
+    printf("Polecenia:\n"
+		" f [rzad] [kolumna] - ustawia lub usuwa flage w danym polu\n"
+		" r [rzad] [kolumna] - odkrywa pole lub usuwa flage w danym polu\n"
+		" h - pokazuje ta wiadomosc\n");
+}

@@ -11,4 +11,6 @@ void draw_with_mines(board * cur_board);
 
 void help();
 
+void help_arg();
+
 #endif
