@@ -134,7 +134,7 @@ void help_arg() // wypisywanie argumentow - help
 {
 	printf("Argumenty:\n"
 		" -t [plik] - testuje program wczytujac procedury z pliku\n"
-		" -t        - przeprowadza testy jednostkowe\n"
+		" -f [plik] - wykonuje gre na podstawie pliku\n"
 		" -h    - wyswietla ta wiadomosc\n\n");
     printf("Polecenia:\n"
 		" f [rzad] [kolumna] - ustawia lub usuwa flage w danym polu\n"
