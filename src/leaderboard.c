@@ -9,10 +9,10 @@
 
 // Funkcja dodająca wynik do pliku w odpowiednim miejscu
 void add_score(const char *name, int score) {
-    Player players[100];  // Tablica na wyniki
+    Player players[100];  
     int count = 0;
 
-    // Otwórz plik do odczytu
+    
     FILE *file = fopen(FILENAME, "r");
     if (file != NULL) {
         while (fscanf(file, "%s %d", players[count].name, &players[count].score) == 2) {
@@ -52,10 +52,10 @@ void add_score(const char *name, int score) {
     printf("Wynik dodany poprawnie!\n\n");
 }
 
-void display_scores() {
+void display_scores() { // wyswietlanie wynikow
     FILE *file = fopen(FILENAME, "r");
     if (file == NULL) {
-        printf("Brak zapisanych wyników.\n");
+        printf("Brak zapisanych wynikow.\n");
         return;
     }
 

@@ -5,10 +5,10 @@
 
 #define MAX_SIZE 50
 
-void load_minesweeper_board(const char *filename) {
+int load_minesweeper_board(const char *filename) { // czytanie planszy z pliku
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
-        perror("Nie można otworzyć pliku");
+        perror("Nie mozna otworzyc pliku");
         exit(EXIT_FAILURE);
     }
 
@@ -40,8 +40,12 @@ void load_minesweeper_board(const char *filename) {
     }
 
  
-    play(&cur_b, file); // rozgrywanie gry
-
+    int res = play(&cur_b, file); // rozgrywanie gry
+    
+    int expected_res = -1;
+    fscanf(file, " %d", &expected_res);
     fclose(file);
+
+    return res == expected_res;
 }
 

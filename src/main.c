@@ -7,12 +7,13 @@
 #include "game.h"
 #include "board.h"
 
+// tryby gry, WRONG - tryb gry nie zostal pomyslnie utworzony
 board_info EZ = {9,9,10, 1};
 board_info MEDIUM = {16,16,40, 2};
 board_info HARD = {16,30,99, 3};
 board_info WRONG = {0, 0, 0, 0};
 
-board_info Create_Custom_Board_Info()
+board_info Create_Custom_Board_Info() // tworzenie customowej struktury inicjalizujacej plansze
 {
     printf("Podaj wielkosc planszy:\n");
     printf("Wysokosc:");
@@ -36,7 +37,7 @@ board_info Create_Custom_Board_Info()
     board_info new = {w, c, m, 1};
     return new;
 }
-board_info Select_Board()
+board_info Select_Board() // wybranie trybu gry
 {   
     printf("Wybierz poziom trudnosci:\n");
     printf("1. Latwy  9x9   pol, 10 min\n");
@@ -73,15 +74,18 @@ board_info Select_Board()
 int main(int argc, char* argv[])
 {
     int opt;
-    
+    int res;
     // Opcje: -h, -f <plik>
-    while ((opt = getopt(argc, argv, "hf:")) != -1) {
+    while ((opt = getopt(argc, argv, "hf:t:")) != -1) { // przetwazanie argumentow
         switch (opt) {
             case 'h':
                 help_arg();
                 return 0;
+            case 't':
+                res = load_minesweeper_board(optarg);
+                res ? printf("Test przeszedl pomyslnie!\n") : printf("Test nieudany!");
+                return 0;
             case 'f':
-                printf("Wybrano opcje -f z wartoscia: %s\n", optarg);
                 load_minesweeper_board(optarg);
                 return 0;
             case '?':
@@ -90,12 +94,11 @@ int main(int argc, char* argv[])
         }
     }
 
-
-    board_info info = Select_Board();
+    board_info info = Select_Board(); // stworzenie struktury inicjalizujacej plansze
     if (info.rows == 0) return 1; 
 
     srand(time(NULL));
-    board cur_board = Create_Board(&info);
+    board cur_board = Create_Board(&info); // stworzenie struktury planszy
 
-    play(&cur_board, stdin);
+    play(&cur_board, stdin); // rozgrywka
 }

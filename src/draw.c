@@ -2,11 +2,7 @@
 #include "board.h"
 
 void draw_mines(board * cur_board)
-{   
-    
-    // printf("\033[2J");  // Czyści całą konsolę
-    // printf("\033[H");
-    // clrscr();
+{ 
     int cmt_10 = cur_board->cols >= 10 ? 1 : 0;
     int rmt_10 = cur_board->rows >= 10 ? 1 : 0;
 
@@ -79,7 +75,7 @@ void draw(board * cur_board)
         printf("\n");
     }
     printf("\n");
-    draw_mines(cur_board);
+    // draw_mines(cur_board);
 }
 
 void draw_with_mines(board * cur_board)
@@ -121,7 +117,7 @@ void draw_with_mines(board * cur_board)
     }
     printf("\n");
 
-    draw_mines(cur_board);
+    // draw_mines(cur_board);
 }
 
 void help()
@@ -131,14 +127,14 @@ void help()
 		" f [rzad] [kolumna] - ustawia lub usuwa flage w danym polu\n"
 		" r [rzad] [kolumna] - odkrywa pole lub usuwa flage w danym polu\n"
 		" h - pokazuje ta wiadomosc\n"
-        " Nacisnij dowolny przycisk aby wyjsc\n");
+        " Nacisnij dowolny przycisk i zatwierdz enterem aby wyjsc\n");
 }
 
 void help_arg()
 {
 	printf("Argumenty:\n"
 		" -t [plik] - testuje program wczytujac procedury z pliku\n"
-		" -u        - przeprowadza testy jednostkowe\n"
+		" -t        - przeprowadza testy jednostkowe\n"
 		" -h    - wyswietla ta wiadomosc\n\n");
     printf("Polecenia:\n"
 		" f [rzad] [kolumna] - ustawia lub usuwa flage w danym polu\n"
