@@ -92,7 +92,7 @@ int reveal(board * cur_board, int row, int col, int * first_guess, int visited[M
     return 1;
 }
 
-void play(board * cur_board)
+void play(board * cur_board, FILE * f)
 {
     char option = '0';
     int r_row = 0;
@@ -108,12 +108,12 @@ void play(board * cur_board)
     
     while (1)
     {   
-        scanf(" %c", &option);
+        fscanf(f, " %c", &option);
         
         if (option == 'r')
         {   
-            scanf(" %d", &r_row);
-            scanf(" %d", &r_col);
+            fscanf(f, " %d", &r_row);
+            fscanf(f, " %d", &r_col);
             row = r_row - 1;
             col = r_col - 1;
             if ((col >= 0 && col < cur_board->cols) && (row >= 0 && row < cur_board->rows))
@@ -159,8 +159,8 @@ void play(board * cur_board)
         }
         else if (option == 'f')
         {
-            scanf(" %d", &r_row);
-            scanf(" %d", &r_col);
+            fscanf(f, " %d", &r_row);
+            fscanf(f, " %d", &r_col);
             row = r_row - 1;
             col = r_col - 1;
             if ((col >= 0 && col < cur_board->cols) && (row >= 0 && row < cur_board->rows))
@@ -192,7 +192,6 @@ void play(board * cur_board)
         else if (option == 'h')
         {
             help();
-            //fseek(stdin,0,SEEK_END); // czyszczenie bufora
             int d;
             getch();
             draw(cur_board);
@@ -205,6 +204,7 @@ void play(board * cur_board)
         }
     }
 
+    if (f == stdin){
     char imie[100];
     printf("\nPodaj imie: ");
     scanf("%s", imie);
@@ -212,5 +212,6 @@ void play(board * cur_board)
     add_score(imie, cur_board->points);
 
     display_scores();
+    }
 
 }

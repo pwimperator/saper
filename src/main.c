@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include "load.h"
 #include "draw.h"
 #include "game.h"
 #include "board.h"
@@ -81,9 +82,10 @@ int main(int argc, char* argv[])
                 return 0;
             case 'f':
                 printf("Wybrano opcje -f z wartoscia: %s\n", optarg);
-                break;
+                load_minesweeper_board(optarg);
+                return 0;
             case '?':
-                printf("Nieznana opcja: %c\n");
+                printf("Nieznana opcja\n");
                 return 1;
         }
     }
@@ -95,5 +97,5 @@ int main(int argc, char* argv[])
     srand(time(NULL));
     board cur_board = Create_Board(&info);
 
-    play(&cur_board);
+    play(&cur_board, stdin);
 }

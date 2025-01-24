@@ -137,9 +137,9 @@ void help()
 void help_arg()
 {
 	printf("Argumenty:\n"
-		" -t [plik] - testuje program wczytując procedury z pliku\n"
+		" -t [plik] - testuje program wczytujac procedury z pliku\n"
 		" -u        - przeprowadza testy jednostkowe\n"
-		" -h    - wyświetla tą wiadomość\n\n");
+		" -h    - wyswietla ta wiadomosc\n\n");
     printf("Polecenia:\n"
 		" f [rzad] [kolumna] - ustawia lub usuwa flage w danym polu\n"
 		" r [rzad] [kolumna] - odkrywa pole lub usuwa flage w danym polu\n"

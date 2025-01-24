@@ -2,6 +2,6 @@
 #define _LOAD_H_
 
 
-// void load_minesweeper(int *rows, int *cols, char board[MAX_SIZE][MAX_SIZE]);
+void load_minesweeper_board(const char *filename);
 
 #endif
