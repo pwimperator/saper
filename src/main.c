@@ -101,4 +101,6 @@ int main(int argc, char* argv[])
     board cur_board = Create_Board(&info); // stworzenie struktury planszy
 
     play(&cur_board, stdin); // rozgrywka
+
+    return 0;
 }

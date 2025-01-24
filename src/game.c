@@ -98,7 +98,6 @@ int play(board * cur_board, FILE * f)
     int r_col = 0;
     int row = 0;
     int col = 0;
-    int val = 0;
     int first_guess = 1;
     int visited[MAX_SIZE][MAX_SIZE] = {0};
 
@@ -124,7 +123,7 @@ int play(board * cur_board, FILE * f)
                     if (res == -1)
                     {
                         draw_with_mines(cur_board);
-                        printf("Przegrales!\n", r_row, r_col);
+                        printf("Przegrales!\n");
                         break;
                     }
 
@@ -207,7 +206,7 @@ int play(board * cur_board, FILE * f)
         r_col = 0;
     }
 
-    if (f == stdin){
+    if (f == stdin){ // zapisywanie wynikow
     char imie[100];
     printf("\nPodaj imie: ");
     scanf("%s", imie);
