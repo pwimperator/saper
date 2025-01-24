@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "board.h"
 
-void draw_mines(board * cur_board)
+void draw_mines(board * cur_board) // funkcja developerska do pokazywania min
 { 
     int cmt_10 = cur_board->cols >= 10 ? 1 : 0;
     int rmt_10 = cur_board->rows >= 10 ? 1 : 0;
@@ -37,14 +37,14 @@ void draw_mines(board * cur_board)
     }
 }
 
-void draw(board * cur_board)
+void draw(board * cur_board) // funkcja rysujaca aktualny stan planszy
 {
-    printf("\e[1;1H\e[2J");
-    printf("Miny:%5d | Wynik:%5d\n\n", cur_board->mines, cur_board->points);
+    printf("\e[1;1H\e[2J"); // czyszczenie konsoli
+    printf("Miny:%5d | Wynik:%5d\n\n", cur_board->mines, cur_board->points); // wypisanie liczby min i wyniku
     int cmt_10 = cur_board->cols >= 10 ? 1 : 0;
     int rmt_10 = cur_board->rows >= 10 ? 1 : 0;
 
-    if (cmt_10)
+    if (cmt_10) // wypisywanie numeracji rzedow i kolumn w zaleznosci od ich liczby
     {   
         rmt_10 ? printf("   "): printf("  ");
         for (int i = 1; i <= cur_board->cols; i++)
@@ -61,7 +61,7 @@ void draw(board * cur_board)
     printf("\n\n");
 
 
-    for (int i =0; i< cur_board->rows; i++)
+    for (int i =0; i< cur_board->rows; i++) // faktyczne wypisywanie planszy
     {   
         if (rmt_10)
         {
@@ -78,15 +78,15 @@ void draw(board * cur_board)
     // draw_mines(cur_board);
 }
 
-void draw_with_mines(board * cur_board)
+void draw_with_mines(board * cur_board) // wypisywanie planszy z pokazanymi minami - koniec gry
 {   
-    printf("\e[1;1H\e[2J");
-    printf("Miny:%5d | Wynik:%5d\n\n", cur_board->mines, cur_board->points);
+    printf("\e[1;1H\e[2J"); // czyszczenie konsoli
+    printf("Miny:%5d | Wynik:%5d\n\n", cur_board->mines, cur_board->points); // wypisanie liczby min i wyniku
 
     int cmt_10 = cur_board->cols >= 10 ? 1 : 0;
     int rmt_10 = cur_board->rows >= 10 ? 1 : 0;
 
-    if (cmt_10)
+    if (cmt_10) // wypisywanie numeracji rzedow i kolumn w zaleznosci od ich liczby
     {   
         rmt_10 ? printf("   "): printf("  ");
         for (int i = 1; i <= cur_board->cols; i++)
@@ -102,7 +102,7 @@ void draw_with_mines(board * cur_board)
     }
     printf("\n\n");
 
-    for (int i =0; i< cur_board->rows; i++)
+    for (int i =0; i< cur_board->rows; i++) // faktyczne wypisywanie planszy
     {
         if (rmt_10)
         {
@@ -120,7 +120,7 @@ void draw_with_mines(board * cur_board)
     // draw_mines(cur_board);
 }
 
-void help()
+void help() // wypisywanie polecen - help
 {
     printf("\e[1;1H\e[2J");
 	printf("Polecenia:\n"
@@ -130,7 +130,7 @@ void help()
         " Nacisnij dowolny przycisk i zatwierdz enterem aby wyjsc\n");
 }
 
-void help_arg()
+void help_arg() // wypisywanie argumentow - help
 {
 	printf("Argumenty:\n"
 		" -t [plik] - testuje program wczytujac procedury z pliku\n"

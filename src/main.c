@@ -54,7 +54,7 @@ board_info Select_Board() // wybranie trybu gry
         return WRONG;
     }
 
-    switch (level)
+    switch (level) // zwrocenie sturktury na podstawie ktorej wybrany zostanie tryb gry
     {
         case 1:
             return EZ;

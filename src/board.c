@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 
-board Create_Board(board_info * cur_info)
+board Create_Board(board_info * cur_info) // towrzenie struktury-planszy
 {
     
     board new_board;
@@ -17,7 +17,9 @@ board Create_Board(board_info * cur_info)
     new_board.all_safe_squares = new_board.cols * new_board.rows - new_board.mines;
     new_board.empty_squares = 0;
 
-    new_board.area = malloc(new_board.rows * sizeof(char *));
+
+    // alokacja pamieci
+    new_board.area = malloc(new_board.rows * sizeof(char *)); 
     new_board.planted_mines = malloc(new_board.rows * sizeof(char *));
     for (int i = 0; i < new_board.rows; i++)
     {
@@ -25,7 +27,7 @@ board Create_Board(board_info * cur_info)
         new_board.planted_mines[i] = malloc(new_board.cols * sizeof(char) + 1);
     }
 
-    // filling board and mine field
+    // wypelnianie pol 
     for (int i = 0; i < new_board.rows; i++)
     {
         for(int j = 0; j < new_board.cols; j++)
@@ -35,7 +37,7 @@ board Create_Board(board_info * cur_info)
         }
     }
 
-    // planting mines
+    // wypelnianie pol minami
     int free_mines = new_board.mines;
     while (free_mines)
     {   
@@ -51,7 +53,7 @@ board Create_Board(board_info * cur_info)
     return new_board;
 }
 
-void Regenerate(board * cur_board, int row, int col)
+void Regenerate(board * cur_board, int row, int col) // losowanie miny w inne miejsce
 {
     cur_board->planted_mines[row][col] = 0;
 

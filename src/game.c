@@ -91,7 +91,7 @@ int reveal(board * cur_board, int row, int col, int * first_guess, int visited[M
     return 1;
 }
 
-int play(board * cur_board, FILE * f)
+int play(board * cur_board, FILE * f) // rozgrywanie gry
 {
     char option = '0';
     int r_row = 0;
@@ -104,9 +104,9 @@ int play(board * cur_board, FILE * f)
     f == stdin ? draw(cur_board): 0;
     f == stdin ? printf("Prosze podac koordynaty\n") : 0;
     
-    while (1)
+    while (1) // nieskonczona petla (rundy)
     {   
-        fscanf(f, " %c", &option);
+        fscanf(f, " %c", &option); // czytanie danych wejsciowych
         
         if (option == 'r')
         {   
@@ -208,12 +208,12 @@ int play(board * cur_board, FILE * f)
 
     if (f == stdin){ // zapisywanie wynikow
     char imie[100];
-    printf("\nPodaj imie: ");
+    printf("\nPodaj imie: "); // imie
     scanf("%s", imie);
 
-    add_score(imie, cur_board->points);
+    add_score(imie, cur_board->points); // dodawanie wynikow
 
-    display_scores();
+    display_scores(); // wyspiwyanie 5 najlepszych
     }
 
     return cur_board->points;
