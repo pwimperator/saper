@@ -9,7 +9,7 @@ int around(board * cur_board, int row, int col) // sprawdzanie liczby min wokol 
 {
     int res = 0;
 
-    int moves[] = { // row col
+    int moves[] = { // ruchy do wykonania [row, col]
         -1, -1,
         0, -1,
         1, -1,
@@ -22,12 +22,12 @@ int around(board * cur_board, int row, int col) // sprawdzanie liczby min wokol 
     int cur_row = 0;
     int cur_col = 0;
 
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < 8; i++) // sprawdzanie liczby min
     {   
         cur_row = row + moves[i * 2];
         cur_col = col + moves[i * 2 + 1];
 
-        if ( (cur_row >= 0 && cur_row < cur_board->rows) && (cur_col >= 0 && cur_col < cur_board->cols) && cur_board->planted_mines[cur_row][cur_col] == 1)
+        if ( (cur_row >= 0 && cur_row < cur_board->rows) && (cur_col >= 0 && cur_col < cur_board->cols) && cur_board->planted_mines[cur_row][cur_col] == 1) // jest mina
             res += 1;
     }
     return res;
@@ -46,7 +46,7 @@ void dfs(board * cur_board, int row, int col, int visited[MAX_SIZE][MAX_SIZE]) /
 
     if (val > 0) return;
 
-    int moves[] = { // row col
+    int moves[] = { // ruchy do wykonania [row, col]
         -1, -1,
         0, -1,
         1, -1,
@@ -72,7 +72,7 @@ void dfs(board * cur_board, int row, int col, int visited[MAX_SIZE][MAX_SIZE]) /
 
 int reveal(board * cur_board, int row, int col, int * first_guess, int visited[MAX_SIZE][MAX_SIZE]) // odkrycie danego pola
 {
-    if (*first_guess) // jesli na pierwszym wybranym polu jest mina, przenies ja
+    if (*first_guess) // jesli w pierwszym wybranym polu jest mina, przenies ja
     {
         if (cur_board->planted_mines[row][col] == 1)
             Regenerate(cur_board, row, col);

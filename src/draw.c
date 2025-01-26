@@ -85,7 +85,7 @@ void draw(board * cur_board) // funkcja rysujaca aktualny stan planszy
     // draw_mines(cur_board);
 }
 
-void draw_with_mines(board * cur_board) // wypisywanie koncowego stanu planszy z pokazanymi minami - koniec gry
+void draw_with_mines(board * cur_board, int row, int col) // wypisywanie koncowego stanu planszy z pokazanymi minami - koniec gry
 {   
     printf("\e[1;1H\e[2J"); // czyszczenie konsoli
     printf("Miny:%5d | Wynik:%5d\n\n", cur_board->mines, cur_board->points); // wypisanie liczby min i wyniku
@@ -118,7 +118,9 @@ void draw_with_mines(board * cur_board) // wypisywanie koncowego stanu planszy z
         printf("%d ", (i + 1) % 10);
         for (int j=0; j<cur_board->cols; j++)
         {   
-            if (cur_board->planted_mines[i][j] == 1)
+            if (cur_board->planted_mines[i][j] == 1 && i == row && j == col) // wypisywanie z kolorami
+                printf("\033[31;43m%c\033[0m", '*');
+            else if (cur_board->planted_mines[i][j] == 1)
                 printf("\033[31m%c\033[0m", '*');
             else if (cur_board->area[i][j] == '1') 
                 printf("\033[36m%c\033[0m", cur_board->area[i][j]);

@@ -3,6 +3,7 @@
 #include <time.h>
 #include <unistd.h>
 #include "load.h"
+#include "tests.h"
 #include "draw.h"
 #include "game.h"
 #include "board.h"
@@ -84,6 +85,7 @@ int main(int argc, char* argv[])
             case 't':
                 res = load_minesweeper_board(optarg);
                 res ? printf("Test przeszedl pomyslnie!\n") : printf("Test nieudany!");
+                test_all();
                 return 0;
             case 'f':
                 load_minesweeper_board(optarg);
