@@ -2,8 +2,8 @@ CC=cc
 FLAGS=-Wall -g
 OUT=saper
 
-FILES_C=src/main.c src/board.c src/draw.c src/leaderboard.c src/game.c src/load.c
-FILES_H=src/board.h src/draw.h src/leaderboard.h src/game.h src/load.h
+FILES_C=src/main.c src/board.c src/draw.c src/leaderboard.c src/game.c src/load.c src/tests.c
+FILES_H=src/board.h src/draw.h src/leaderboard.h src/game.h src/load.h src/tests.h
 
 $(OUT): $(FILES_C) $(FILES_H)
 	$(CC) $(FLAGS) $(FILES_C) -o $(OUT)
