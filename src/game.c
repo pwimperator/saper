@@ -35,7 +35,7 @@ int around(board * cur_board, int row, int col) // sprawdzanie liczby min wokol 
 
 void dfs(board * cur_board, int row, int col, int visited[MAX_SIZE][MAX_SIZE]) // dfs do odkrywania planszy
 {   
-    if (visited[row][col] == 1) return;
+    if (visited[row][col] == 1 || cur_board->area[row][col] == 'F') return;
 
     visited[row][col] = 1;
     cur_board->points += cur_board->level;

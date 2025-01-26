@@ -6,7 +6,7 @@ void draw_mines(board * cur_board) // funkcja developerska do pokazywania min
     int cmt_10 = cur_board->cols >= 10 ? 1 : 0;
     int rmt_10 = cur_board->rows >= 10 ? 1 : 0;
 
-    if (cmt_10)
+    if (cmt_10) // wypisywanie numeracji rzedow i kolumn w zaleznosci od wysokosci i szerokosci planszy
     {   
         rmt_10 ? printf("   "): printf("  ");
         for (int i = 1; i <= cur_board->cols; i++)
@@ -22,7 +22,7 @@ void draw_mines(board * cur_board) // funkcja developerska do pokazywania min
     }
     printf("\n\n");
 
-    for (int i =0; i< cur_board->rows; i++)
+    for (int i =0; i< cur_board->rows; i++) // wypisywanie planszy z pokazanymi minami
     {
         if (rmt_10)
         {
@@ -44,7 +44,7 @@ void draw(board * cur_board) // funkcja rysujaca aktualny stan planszy
     int cmt_10 = cur_board->cols >= 10 ? 1 : 0;
     int rmt_10 = cur_board->rows >= 10 ? 1 : 0;
 
-    if (cmt_10) // wypisywanie numeracji rzedow i kolumn w zaleznosci od ich liczby
+    if (cmt_10) // wypisywanie numeracji rzedow i kolumn w zaleznosci od wysokosci i szerokosci planszy
     {   
         rmt_10 ? printf("   "): printf("  ");
         for (int i = 1; i <= cur_board->cols; i++)
@@ -69,8 +69,15 @@ void draw(board * cur_board) // funkcja rysujaca aktualny stan planszy
         }
         printf("%d ", (i + 1) % 10);
         for (int j=0; j<cur_board->cols; j++)
-        {
-            printf("%c", cur_board->area[i][j]);
+        {   
+            if (cur_board->area[i][j] == '1') 
+                printf("\033[36m%c\033[0m", cur_board->area[i][j]);
+            else if (cur_board->area[i][j] == '2')
+                printf("\033[32m%c\033[0m", cur_board->area[i][j]);
+            else if (cur_board->area[i][j] >= '3' && cur_board->area[i][j] <= '8')
+                printf("\033[31m%c\033[0m", cur_board->area[i][j]);
+            else
+                printf("%c", cur_board->area[i][j]);
         }
         printf("\n");
     }
@@ -78,7 +85,7 @@ void draw(board * cur_board) // funkcja rysujaca aktualny stan planszy
     // draw_mines(cur_board);
 }
 
-void draw_with_mines(board * cur_board) // wypisywanie planszy z pokazanymi minami - koniec gry
+void draw_with_mines(board * cur_board) // wypisywanie koncowego stanu planszy z pokazanymi minami - koniec gry
 {   
     printf("\e[1;1H\e[2J"); // czyszczenie konsoli
     printf("Miny:%5d | Wynik:%5d\n\n", cur_board->mines, cur_board->points); // wypisanie liczby min i wyniku
@@ -110,8 +117,19 @@ void draw_with_mines(board * cur_board) // wypisywanie planszy z pokazanymi mina
         }
         printf("%d ", (i + 1) % 10);
         for (int j=0; j<cur_board->cols; j++)
-        {
-            cur_board->planted_mines[i][j] == 1 ? printf("\033[33m%c\033[0m", '*') : printf("%c", cur_board->area[i][j]);
+        {   
+            if (cur_board->planted_mines[i][j] == 1)
+                printf("\033[31m%c\033[0m", '*');
+            else if (cur_board->area[i][j] == '1') 
+                printf("\033[36m%c\033[0m", cur_board->area[i][j]);
+            else if (cur_board->area[i][j] == '2')
+                printf("\033[32m%c\033[0m", cur_board->area[i][j]);
+            else if (cur_board->area[i][j] >= '3' && cur_board->area[i][j] <= '8')
+                printf("\033[31m%c\033[0m", cur_board->area[i][j]);
+            else
+                printf("%c", cur_board->area[i][j]);
+
+            // cur_board->planted_mines[i][j] == 1 ? printf("\033[34m%c\033[0m", '*') : printf("%c", cur_board->area[i][j]);
         }
         printf("\n");
     }
